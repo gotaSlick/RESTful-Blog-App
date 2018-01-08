@@ -113,6 +113,7 @@ app.delete("/blogs/:id", function(req, res){
     });
 });
 
-app.listen(3000, function () {
-    console.log("server is running");
-});
+// Start node server
+app.listen( app.get( 'port' ), function() {
+  console.log( 'Node server is running on port ' + app.get( 'port' ));
+  });
