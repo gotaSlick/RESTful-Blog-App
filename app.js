@@ -3,15 +3,17 @@ var bodyParser     = require("body-parser"),
     mongoose       = require("mongoose"),
     express        = require("express"),
     app            = express();
+    database       = require("./config/database");
 
 //APP CONFIG
-mongoose.connect("mongodb://localhost/restful_blog_app");
+database.startDb();
 app.set("view engine", "ejs");
 app.use(express.static("public")); //so that express goes to look for static files in the public directory
 app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(methodOverride("_method"));
+
 
 //MONGOOSE/MODEL CONFIG
 //the blog posts will have title, image, 
@@ -113,6 +115,7 @@ app.delete("/blogs/:id", function(req, res){
     });
 });
 
+app.set('port', (process.env.PORT || 3000));
 // Start node server
 app.listen( app.get( 'port' ), function() {
   console.log( 'Node server is running on port ' + app.get( 'port' ));
